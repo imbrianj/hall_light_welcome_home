@@ -17,11 +17,15 @@ preferences {
   }
 
   section("Hall Light?") {
-		input "lights", "capability.switch", title: "Switch Turned On", multilple: true
+    input "lights", "capability.switch", title: "Switch Turned On", multilple: true
   }
 
   section("Presence Delay (defaults to 30s)?") {
-    input name: "delaySeconds", type: "number", title: "How Long?", required: false
+    input name: "presenceDelay", type: "number", title: "How Long?", required: false
+  }
+
+  section("Door Contact Delay (defaults to 5s)?") {
+    input name: "contactDelay", type: "number", title: "How Long?", required: false
   }
 }
 
@@ -41,13 +45,23 @@ def init() {
 }
 
 def presence(evt) {
-	state.lastPresence = now()
+  def delay = contactDelay ?: 5
+
+  state.lastPresence = now()
+
+  if(now() - (delay * 1000) < state.lastContact) {
+    log.info('Presence was delayed, but you probably still want the light on.')
+    lights?.on()
+  }
 }
 
 def doorOpened(evt) {
-  def delay = delaySeconds ?: 30
+  def delay = presenceDelay ?: 30
+
+  state.lastContact = now()
 
   if(now() - (delay * 1000) < state.lastPresence) {
+    log.info('Welcome home!  Let me get that light for you.')
     lights?.on()
   }
 }
