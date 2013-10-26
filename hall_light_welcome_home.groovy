@@ -24,7 +24,7 @@ preferences {
     input name: "presenceDelay", type: "number", title: "How Long?", required: false
   }
 
-  section("Door Contact Delay (defaults to 5s)?") {
+  section("Door Contact Delay (defaults to 10s)?") {
     input name: "contactDelay", type: "number", title: "How Long?", required: false
   }
 }
@@ -45,7 +45,7 @@ def init() {
 }
 
 def presence(evt) {
-  def delay = contactDelay ?: 5
+  def delay = contactDelay ?: 10
 
   state.lastPresence = now()
 
