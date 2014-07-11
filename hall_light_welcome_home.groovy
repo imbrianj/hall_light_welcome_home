@@ -7,6 +7,16 @@
  *  Turn on the hall light if someone comes home (presence) and the door opens.
  */
 
+definition(
+  name: "Hall Light: Welcome Home",
+  namespace: "imbrianj",
+  author: "brian@bevey.org",
+  description: "Turn on the hall light if someone comes home (presence) and the door opens.",
+  category: "Convenience",
+  iconUrl: "https://s3.amazonaws.com/smartapp-icons/Convenience/Cat-Convenience.png",
+  iconX2Url: "https://s3.amazonaws.com/smartapp-icons/Convenience/Cat-Convenience%402x.png"
+)
+
 preferences {
   section("People to watch for?") {
     input "people", "capability.presenceSensor", multiple: true
