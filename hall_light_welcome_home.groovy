@@ -27,7 +27,7 @@ preferences {
   }
 
   section("Hall Light?") {
-    input "lights", "capability.switch", title: "Switch Turned On", multilple: true
+    input "lights", "capability.switch", title: "Switch Turned On", multiple: true
   }
 
   section("Presence Delay (defaults to 30s)?") {
